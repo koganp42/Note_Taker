@@ -1,16 +1,20 @@
 const fs = require("fs");
-async function dbDataRead(){ 
-    fs.readFile('../db/db.json', function read(err, data) {
-    if (err) {
-        throw err;
-    }
-    return(data);
-  })};
+// function dbDataRead(){ 
+//     fs.readFile('../db/db.json', function read(err, data) {
+//     if (err) {
+//         throw err;
+//     }
+//     return(data);
+//   })};
 
 module.exports = function(app) {
   
     app.get("/api/notes", function(req, res) {
-      let data = await dbDataRead(); 
+      let data = fs.readFileSync('../db/db.json', function read(err, data) {
+        if (err) {
+            throw err;
+        }
+      }); 
       res.json(JSON.parse(data));
     });
   
@@ -23,29 +27,32 @@ module.exports = function(app) {
     // ---------------------------------------------------------------------------
   
     app.post("/api/notes", function(req, res) {
-        let data = await dbDataRead();
+        let data = fs.readFileSync('../db/db.json', function read(err, data) {
+            if (err) {
+                throw err;
+            }
+          });
         let parsedData = JSON.parse(data);
         parsedData.push(req.body);
         let jsonData = JSON.stringify(parsedData);
         fs.writeFileSync("../db/db.json", jsonData, function(Error){
             if(Error){
                 throw(Error)
-            } else {
-                res.json(req.body)
-            };
+            }
         });
+        res.json(req.body)
     });
   
     // ---------------------------------------------------------------------------
     // I added this below code so you could clear out the table while working with the functionality.
     // Don"t worry about it!
   
-    app.delete("/api/clear", function(req, res) {
-      // Empty out the arrays of data
-      tableData.length = 0;
-      waitListData.length = 0;
+    // app.delete("/api/clear", function(req, res) {
+    //   // Empty out the arrays of data
+    //   tableData.length = 0;
+    //   waitListData.length = 0;
   
-      res.json({ ok: true });
-    });
+    //   res.json({ ok: true });
+    // });
   };
   
