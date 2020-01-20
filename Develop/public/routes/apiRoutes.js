@@ -9,7 +9,6 @@ function writeNewNoteToArray(newNote) {
     };
   });
 };
-let parsedData = [];
 
 module.exports = function (app) {
 
@@ -24,12 +23,13 @@ module.exports = function (app) {
 
   app.post("/api/notes", function (req, res) {
     let newNote = req.body;
+    let parsedData = [];
     let data = fs.readFileSync('../db/db.json', function read(err, data) {
       if (err) {
         throw err;
       }
     });
-    let parsedData = JSON.parse(data);
+    parsedData = JSON.parse(data);
     console.log(parsedData);
     if (parsedData.length === 0) {
       let id = 0;
@@ -44,5 +44,27 @@ module.exports = function (app) {
     }
   });
 
+  app.delete("/api/notes/id:", function (req, res) {
+    let delNoteId = parseInt(req.params.id);
+    console.log(delNoteId);
+    let data = fs.readFile('../db/db.json', function read(err, data) {
+      if (err) {
+        throw err;
+      }
+    });
+    let parsedData = JSON.parse(data);
+    console.log(parsedData);
 
+    for (let i = 0; i < parsedData.length; i++) {
+      if (parsedData[i].id === delNoteId) {
+        res.json(parsedData.splice(i, 1));
+      }
+    }
+    fs.writeFile("../db/db.json", JSON.stringify(parsedData), function (Error) {
+      if (Error) {
+        throw (Error)
+      };
+
+    });
+  });
 };
