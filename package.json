@@ -1,0 +1,24 @@
+{
+  "name": "note-taker",
+  "version": "1.0.0",
+  "description": "A note-taking web app using express and mysql to let a user create and store notes as json objects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kogan Pack",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "path": "^0.12.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koganp42/Note_Taker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/koganp42/Note_Taker/issues"
+  },
+  "homepage": "https://github.com/koganp42/Note_Taker#readme"
+}
