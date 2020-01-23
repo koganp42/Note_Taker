@@ -4,7 +4,8 @@
   "description": "A note-taking web app using express and mysql to let a user create and store notes as json objects.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node server.js" 
   },
   "author": "Kogan Pack",
   "license": "ISC",

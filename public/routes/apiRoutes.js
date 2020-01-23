@@ -4,7 +4,7 @@ const fs = require("fs");
 function writeNewNoteToArray(newNote) {
   parsedData.push(newNote);
 
-  fs.writeFile("../db/db.json", JSON.stringify(parsedData), function (Error) {
+  fs.writeFile("./db/db.json", JSON.stringify(parsedData), function (Error) {
     if (Error) {
       throw (Error)
     };
@@ -17,7 +17,7 @@ module.exports = function (app) {
 
   // GET Request handling
   app.get("/api/notes", function (req, res) {
-    let data = fs.readFileSync('../db/db.json', function read(err, data) {
+    let data = fs.readFileSync('./db/db.json', function read(err, data) {
       if (err) {
         throw err;
       }
@@ -29,7 +29,7 @@ module.exports = function (app) {
   app.post("/api/notes", function (req, res) {
     let newNote = req.body;
     //Saving the db.json file data to the data variable, parsing that data after.
-    let data = fs.readFileSync('../db/db.json', function read(err, data) {
+    let data = fs.readFileSync('./db/db.json', function read(err, data) {
       if (err) {
         throw err;
       }
@@ -55,7 +55,7 @@ module.exports = function (app) {
     // Saves the id of the note to be deleted. 
     let delNoteId = parseInt(req.params.id);
     console.log(delNoteId);
-    let data = fs.readFileSync('../db/db.json', function read(err, data) {
+    let data = fs.readFileSync('./db/db.json', function read(err, data) {
       if (err) {
         throw err;
       }
@@ -69,7 +69,7 @@ module.exports = function (app) {
       }
     }
     // Re-writing the db.json file with the updated array.
-    fs.writeFile("../db/db.json", JSON.stringify(parsedData), function (Error) {
+    fs.writeFile("./db/db.json", JSON.stringify(parsedData), function (Error) {
       if (Error) {
         throw (Error)
       };
